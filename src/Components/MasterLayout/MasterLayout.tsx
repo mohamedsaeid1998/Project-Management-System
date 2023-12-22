@@ -22,9 +22,8 @@ const MasterLayout = () => {
 <div className={`sidebar-container `}>
   <SideBar {...{ logOut ,setSidebarOpen ,isSidebarOpen}} />
 </div>
-
 <div className={`container-fluid main ${isSidebarOpen ? 'main-sidebar-open' : 'main-sidebar-closed'} `}>
-  <Navbar />
+<Navbar {...{logOut}}/>
   <Outlet />
 </div>
 

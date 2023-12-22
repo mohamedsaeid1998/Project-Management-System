@@ -209,3 +209,14 @@ a:hover {
 .main-sidebar-open {
   margin-left: 250px;
 }
+
+.navImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.navStyle {
+  display: flex;
+  justify-content: end;
+}

@@ -7,14 +7,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import App from './App.tsx'
 import AuthContextProvider from './Context/AuthContext.tsx'
 import ToastContextProvider from './Context/ToastContext.tsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './Styles/global.scss'
 
+
+
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
+  <QueryClientProvider client={queryClient}>
+
   <ToastContextProvider>
       <AuthContextProvider>
       <ToastContainer />
         <App />
       </AuthContextProvider>
     </ToastContextProvider>
-
+    </QueryClientProvider>
 )
+
+
+

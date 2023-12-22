@@ -4,5 +4,6 @@
 // import ChangePasswordBg from './ChangePassword.png'
 import AuthLogo from './AuthLogo.svg'
 import RegisterPhoto from './RegisterPhoto.jpeg'
+import NavLogo from './NavLogo.svg'
 
-export {AuthLogo,RegisterPhoto}
+export {AuthLogo,RegisterPhoto,NavLogo}

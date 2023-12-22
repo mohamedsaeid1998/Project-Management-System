@@ -10,6 +10,7 @@ interface AuthContextValue {
   header:{
     Authorization:string
   }
+  userRole:string
 }
 
 export const AuthContext = createContext<AuthContextValue|null>(null);
@@ -29,23 +30,27 @@ const AuthContextProvider = ({ children }: IContextProps) => {
 
   const [Loading, setLoading] = useState(false)
   const [adminData, setAdminData] = useState<JwtPayload | null>(null)
+  const [userRole, setUserRole] = useState("")
 
 
 const saveAdminData = () => {
 const encodedToken = localStorage.getItem("adminToken")
 if (encodedToken) {
   const decodedToken = jwtDecode<JwtPayload>(encodedToken);
+      // @ts-ignore
+  setUserRole(decodedToken?.userGroup)
   setAdminData(decodedToken)
 }
 }
 
 
 
+console.log(userRole);
 
 
 
 
-  return <AuthContext.Provider value={{Loading,adminData,saveAdminData,header}}>
+  return <AuthContext.Provider value={{Loading,adminData,saveAdminData,header,userRole}}>
       {children}
     </AuthContext.Provider>
 };
