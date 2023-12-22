@@ -16,6 +16,10 @@
   background-color: $main-color;
 }
 
+.auth{
+  min-height: 100vh !important;
+}
+
 .AuthLogin {
   background: url("../Assets/Images/Login.png") no-repeat;
   background-size: 100% 100%;
@@ -48,8 +52,17 @@
   }
   .bg-overlay {
     border-radius: 16px;
-    background: rgba(49, 89, 81, 0.9);
+    background: rgba(49, 89, 81, 0.9) !important;
   }
+}
+
+.modal-body{
+  background: rgba(49, 89, 81, 0.9) !important;
+  color: white;
+}
+
+.more{
+  padding: 50px !important;
 }
 
 .title::before {
@@ -140,4 +153,59 @@ a:hover {
       }
     }
   }
+}
+
+
+
+#imageCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#imagePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#imageInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2; 
+}
+
+#customButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent; 
+  cursor: pointer;
+  
+}
+
+
+.container-fluid.main {
+  transition: all 0.3s;
+  overflow-x: hidden;
+}
+
+
+.main-sidebar-closed {
+  margin-left: 80px;
+}
+
+.main-sidebar-open {
+  margin-left: 250px;
 }

@@ -13,16 +13,16 @@ const AuthComponent = ({ children, title }: Props) => {
   const { pathname } = useLocation()
   return <>
     <main className={`${pathname === '/' || pathname === '/login' ? "AuthLogin" : pathname === "/forgetPassword" ? "AuthForget" : pathname === "/resetPassword" ? "AuthReset" : "AuthChange"} Auth-container container-fluid`}>
-      <div className="row vh-100 justify-content-center align-items-center ">
-        <div className="col-md-6">
+      <div className="row auth  justify-content-center align-items-center ">
+        <div className={`${pathname === '/register'? "col-md-10" :"col-md-6" }`}>
 
           <div className='text-center'>
             <img src={AuthLogo} className='Auth-Logo object-fit-cover me-2' alt="logo" />
           </div>
 
-          <div className={`bg-overlay text-white p-5 animate__animated ${pathname === "/" ? " animate__zoomIn" : pathname === "/reset-pass" ? "animate__slideInDown" : "animate__zoomInDown"} `}>
+          <div className={`bg-overlay p-5  text-white animate__animated ${pathname === "/" ? " animate__zoomIn" : pathname === "/reset-pass" ? "animate__slideInDown" : pathname === "/register" ?  "animate__slideInDown more"  :  "animate__zoomInDown"} `}>
             <span className='fst-italic '>Welcome to PMS</span>
-            <h1 className={'fw-bold orange mb-5 title position-relative'}>{title}</h1>
+            <h1 className={`fw-bold orange ${pathname === '/register'? "mb-4" :"mb-5" } title position-relative `}>{title}</h1>
             {children}
           </div>
 

@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate, } from 'react-router-dom'
 import { AuthContext } from '@/Context/AuthContext'
 import { ToastContext } from '@/Context/ToastContext'
-import './Login.module.scss'
 import baseUrl from '@/utils/Custom/Custom'
+import './Login.module.scss'
 
 
 const Login = () => {
@@ -46,8 +46,8 @@ const Login = () => {
         <EmailInput inputName='email' {...{ errors, register }} />
         <PasswordInput inputName='password' placeholder='Enter your password' {...{ errors, register }} />
 
-        <div className=' mt-2 text-end'>
-          <div id='signInDiv'></div>
+        <div className=' mt-2 d-flex justify-content-between align-content-center'>
+          <Link to={'/register'} className='forget text-decoration-none text-white '>Registration ?</Link>
           <Link to={'/forgetPassword'} className='forget text-decoration-none text-white '>Forgot Password ?</Link>
         </div>
         <button type='submit' disabled={Loading} className='btn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Login"}</button>

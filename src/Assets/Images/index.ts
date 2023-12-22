@@ -3,5 +3,6 @@
 // import ResetPasswordBg from './ResetPassword.png'
 // import ChangePasswordBg from './ChangePassword.png'
 import AuthLogo from './AuthLogo.svg'
+import RegisterPhoto from './RegisterPhoto.jpeg'
 
-export {AuthLogo}
+export {AuthLogo,RegisterPhoto}

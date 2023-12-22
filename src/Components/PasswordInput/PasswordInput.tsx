@@ -8,7 +8,7 @@ const PasswordInput = ({ register, inputName, placeholder, errors }: IInputsProp
   const required = "This Field is required"
   return <>
     <div className='input-con'>
-        <label className="orange mt-3">Password</label>
+        <label className="orange mt-3">{inputName==="newPassword"? "New Password": "Password"}</label>
       <div className=' d-flex align-items-center justify-content-between position-relative'>
         <div className='d-flex gap-2 flex-grow-1 flex-column  '>
           <input

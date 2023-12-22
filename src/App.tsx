@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { AuthLayout, MasterLayout, NotFound } from "./Components"
+import { AuthLayout, MasterLayout, NotFound, ProtectedRoute } from "./Components"
 import { ChangePassword, ForgetPassword, Home, Login, Projects, Register, ResetPassword, Tasks, Users, Verify } from "./Pages"
 
 
@@ -19,7 +19,7 @@ function App() {
       ]
     },
     {
-      path: 'dashboard', element: <MasterLayout />, errorElement: <NotFound />, children: [
+      path: 'dashboard', element: <ProtectedRoute><MasterLayout /></ProtectedRoute>, errorElement: <NotFound />, children: [
         { index: true, element: <Home /> },
         { path: "users", element: <Users /> },
         { path: "projects", element: <Projects /> },

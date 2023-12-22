@@ -11,6 +11,11 @@ export interface IFormValues {
   oldPassword?: string,
   newPassword?: string,
   confirmNewPassword?: string,
+  userName?:string
+  country?:string
+  phoneNumber?:number
+  profileImage?:string
+  code?:string
 }
 
 export interface IInputsProps {

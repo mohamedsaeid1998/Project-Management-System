@@ -7,6 +7,9 @@ interface AuthContextValue {
   saveAdminData: () => void;
   Loading:boolean
   adminData:JwtPayload | null
+  header:{
+    Authorization:string
+  }
 }
 
 export const AuthContext = createContext<AuthContextValue|null>(null);
@@ -18,6 +21,10 @@ const AuthContextProvider = ({ children }: IContextProps) => {
   useEffect(() => {
     localStorage.getItem("adminToken") !== null ? saveAdminData() : null
   }, [])
+
+  let header = {
+    Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
+  }
 
 
   const [Loading, setLoading] = useState(false)
@@ -38,7 +45,7 @@ if (encodedToken) {
 
 
 
-  return <AuthContext.Provider value={{Loading,adminData,saveAdminData}}>
+  return <AuthContext.Provider value={{Loading,adminData,saveAdminData,header}}>
       {children}
     </AuthContext.Provider>
 };
