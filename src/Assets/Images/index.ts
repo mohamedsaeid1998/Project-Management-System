@@ -2,5 +2,6 @@
 // import ForgetPasswordBg from './ForgetPassword.png'
 // import ResetPasswordBg from './ResetPassword.png'
 // import ChangePasswordBg from './ChangePassword.png'
+import AuthLogo from './AuthLogo.svg'
 
-// export {LoginBg,ForgetPasswordBg,ResetPasswordBg,ChangePasswordBg}
+export {AuthLogo}

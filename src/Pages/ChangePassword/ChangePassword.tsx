@@ -1,8 +1,10 @@
-import React from 'react'
+import { AuthComponent } from '@/Components'
 import './ChangePassword.module.scss'
 const ChangePassword = () => {
   return <>
-    <div>ChangePassword</div>
+      <AuthComponent title={"Change Password"}>
+        <h1>here</h1>
+      </AuthComponent>  
   </>
 }
 
