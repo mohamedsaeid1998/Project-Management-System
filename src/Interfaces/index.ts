@@ -16,6 +16,8 @@ export interface IFormValues {
   phoneNumber?:number
   profileImage?:string
   code?:string
+  title?:string
+  description?:string
 }
 
 export interface IInputsProps {

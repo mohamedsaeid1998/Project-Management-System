@@ -42,7 +42,7 @@ const Verify = () => {
 <label className="orange mt-3">OTP Verification</label>
 <div className=' d-flex flex-column  '>
   <input
-    className=' form-control w-100'
+    className=' form-control-Auth w-100'
     type="text"
     placeholder='Enter Verification'
 

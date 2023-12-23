@@ -66,7 +66,7 @@ const Register = () => {
               <div className=' d-flex flex-column  '>
                 <label className="orange">User Name</label>
                 <input
-                  className=' form-control w-100'
+                  className=' form-control-Auth w-100'
                   type="text"
                   placeholder='Enter your name'
 
@@ -88,7 +88,7 @@ const Register = () => {
               <div className=' d-flex flex-column  '>
                 <label className="orange mt-3">Country</label>
                 <input
-                  className=' form-control w-100'
+                  className=' form-control-Auth w-100'
                   type="text"
                   placeholder='Enter your Country'
 
@@ -112,7 +112,7 @@ const Register = () => {
               <div className=' d-flex flex-column  '>
                 <label className="orange mt-3">Phone Number</label>
                 <input
-                  className=' form-control w-100'
+                  className=' form-control-Auth w-100'
                   type="tel"
                   placeholder='Enter your phone number'
 

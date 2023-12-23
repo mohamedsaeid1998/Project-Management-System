@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.module.scss'
 import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery'
-import { AuthLogo, NavLogo } from '@/Assets/Images'
+import {  NavLogo } from '@/Assets/Images'
 
 
 interface Props {

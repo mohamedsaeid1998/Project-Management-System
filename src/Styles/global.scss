@@ -8,6 +8,14 @@
   padding: 0;
 }
 
+
+body{
+  background:#F5F5F5;
+}
+
+
+
+
 .orange {
   color: $main-color;
 }
@@ -56,10 +64,10 @@
   }
 }
 
-.modal-body{
-  background: rgba(49, 89, 81, 0.9) !important;
-  color: white;
-}
+// .modal-body{
+//   background: rgba(49, 89, 81, 0.9) !important;
+//   color: white;
+// }
 
 .more{
   padding: 50px !important;
@@ -81,7 +89,7 @@
   border-color: transparent;
 }
 
-.form-control {
+.form-control-Auth {
   all: unset;
 
   border-bottom: 1px solid #ffffff59 !important;
@@ -199,6 +207,7 @@ a:hover {
 .container-fluid.main {
   transition: all 0.3s;
   overflow-x: hidden;
+  padding: 0;
 }
 
 
@@ -207,7 +216,7 @@ a:hover {
 }
 
 .main-sidebar-open {
-  margin-left: 250px;
+  margin-left: 253px;
 }
 
 .navImage {
