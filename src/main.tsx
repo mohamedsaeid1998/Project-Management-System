@@ -9,6 +9,7 @@ import AuthContextProvider from './Context/AuthContext.tsx'
 import ToastContextProvider from './Context/ToastContext.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './Styles/global.scss'
+import ProjectContextProvider from './Context/ProjectContext.tsx'
 
 
 
@@ -16,12 +17,13 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-
   <ToastContextProvider>
+    <ProjectContextProvider>
       <AuthContextProvider>
       <ToastContainer />
         <App />
       </AuthContextProvider>
+    </ProjectContextProvider>
     </ToastContextProvider>
     </QueryClientProvider>
 )

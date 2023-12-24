@@ -16,14 +16,14 @@ const MasterLayout = () => {
 
   return <>
 
-
+<Navbar {...{logOut}}/>
     <div className="container-fluid d-flex ps-0 pe-0 ">
 
 <div className={`sidebar-container `}>
   <SideBar {...{ logOut ,setSidebarOpen ,isSidebarOpen}} />
 </div>
 <div className={`container-fluid main ${isSidebarOpen ? 'main-sidebar-open' : 'main-sidebar-closed'} `}>
-<Navbar {...{logOut}}/>
+
   <Outlet />
 </div>
 

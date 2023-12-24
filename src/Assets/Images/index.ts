@@ -5,5 +5,6 @@
 import AuthLogo from './AuthLogo.svg'
 import RegisterPhoto from './RegisterPhoto.jpeg'
 import NavLogo from './NavLogo.svg'
+import NoDataImg from './NoData-Img.png'
 
-export {AuthLogo,RegisterPhoto,NavLogo}
+export {AuthLogo,RegisterPhoto,NavLogo,NoDataImg}

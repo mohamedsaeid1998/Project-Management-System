@@ -1,33 +1,26 @@
 import { useContext } from 'react';
-
 import { AuthContext } from '@/Context/AuthContext';
 import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery';
-
-import { MdBlock } from "react-icons/md";
-
+import { NoDataImg } from '@/Assets/Images';
+import { LoadingIcon } from '@/Components';
 import { ToastContext } from '@/Context/ToastContext';
 import baseUrl from '@/utils/Custom/Custom';
+import moment from 'moment';
 import './Users.module.scss';
 const Users = () => {
 
-
-
   const auth = useContext(AuthContext)
-  let header = auth?.header
+  let headers = auth?.header
   
   const { data:tableData,refetch } = UseAuthenticatedQuery({
     queryKey: [`getAllTasks`],
-    url: `http://upskilling-egypt.com:3003/api/v1/Users/?pageSize=5&pageNumber=1`,
+    url: `http://upskilling-egypt.com:3003/api/v1/Users`,
     config: {
-      headers:header
+      headers
     }
   })
 
   console.log(tableData);
-
-
-
-
 
 
   // const [Loading, setLoading] = useState(false)
@@ -38,14 +31,14 @@ console.log(id);
 
     // setLoading(true)
     return baseUrl.put(`/api/v1/Users/${id}`,{}, {
-      headers:header
+      headers
     })
       .then((res) => {
         console.log(res)
         if (toast)
           toast.getToastValue("success", "Statue has been Changed")
-        // handleClose()
         // setLoading(false)
+        // handleClose()
         refetch()
       })
       .catch((err) => {
@@ -87,16 +80,20 @@ console.log(id);
 
       </Modal.Body>
     </Modal> */}
-    <main className='bg-white mt-1'>
-      <div className='  p-3'>
+    
+    <main className='mt-1'>
+      <div className=' d-flex justify-content-between align-items-center py-3 px-4 bg-white  '>
         <h2>Users</h2>
       </div>
-
-      <table className="table">
+      {tableData ? <>
+      {tableData?.data?.length > 0 ?
+      <div className='mx-4'>
+      <table className="table  mt-3">
         <thead >
           <tr >
             <th className='ps-3'>User Name</th>
             <th>Statues</th>
+            <th>Images</th>
             <th>Phone Number</th>
             <th>Email</th>
             <th>Date Created</th>
@@ -110,11 +107,12 @@ console.log(id);
 
             <tr key={data?.id} >
               <td data-cell="Title" className='Title ps-3' >{data?.userName}</td>
-              <td data-cell="name ">{data?.isActivated?"Active":"Not Active"}</td>
-              <td data-cell="price ">{data?.phoneNumber}</td>
-              <td data-cell="description ">{data?.email}</td>
-              <td data-cell="tag ">{data?.creationDate}</td>
-              <td data-cell="actions " className='action  align-items-center gap-3   '>
+              <td data-cell="Statues ">{data?.isActivated?<span className="badge bg-success p-2">Active</span>:<span className="badge bg-danger p-2">Not Active</span>}</td>
+              <td data-cell="Image ">{data?.imagePath === null ? <img className='img-table' src={NoDataImg} alt="image" /> : <img className='img-table' src={`http://upskilling-egypt.com:3003/` + data?.imagePath} alt="image" />}</td>
+              <td data-cell="Phone ">{data?.phoneNumber}</td>
+              <td data-cell="Email " className='text-truncate'>{data?.email}</td>
+              <td data-cell="Date Created ">{moment(data?.creationDate).format("Do MMM YY")}</td>
+              <td data-cell="Actions " className='action  align-items-center gap-3 '>
 
                 {/* <span className={`delete text-center`} > */}
                   {/* <FaRegEye size={'20px'} /> */}
@@ -122,8 +120,9 @@ console.log(id);
                 {/* </span> */}
 
                 <span className="edit text-danger pointer d-inline-block  ms-2 text-center">
-                  <MdBlock size={'20px'} onClick={()=>onSubmitBlock(data.id)} />
-
+                  {data?.isActivated?<span className="fw-bold text-danger pointer" onClick={()=>onSubmitBlock(data.id)}>Block</span>: <span className="fw-bold text-success pointer" onClick={()=>onSubmitBlock(data.id)}>UnBlock</span>}
+                  
+                  
 
                 </span>
 
@@ -134,6 +133,14 @@ console.log(id);
         </tbody>
 
       </table>
+      </div>
+      :
+      <div className='text-center mt-3 '>
+          <img src={NoDataImg} alt="noData-img" />
+          <h3 className='pt-1 mb-0'> No Data !</h3>
+
+        </div>}
+        </>: <LoadingIcon />}
     </main>
   </>
 }

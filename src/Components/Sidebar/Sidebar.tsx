@@ -10,6 +10,8 @@ import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
 import { Modal } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { ChangePassword } from '@/Pages';
+import { FaProjectDiagram } from "react-icons/fa";
+import { FaTasks } from "react-icons/fa";
 
 
 interface Props {
@@ -53,8 +55,8 @@ const SideBar = ({logOut,isSidebarOpen,setSidebarOpen}:Props) => {
           <MenuItem data-aos="zoom-out" data-aos-delay="1000" className='my-4 logoImage'  onClick={() => handleToggle()} icon={<i className='fa fa-arrow-right'></i>} ></MenuItem>
           <MenuItem data-aos-delay="300" data-aos="fade-right"  className={`${pathname === "/dashboard" ? 'active' : null} link`} component={<Link to="/dashboard" />} icon={<LiaHomeSolid size={'25px'} />}>Home</MenuItem>
           <MenuItem data-aos-delay="400" data-aos="fade-right"  className={`${pathname === '/dashboard/users' ? 'active' : null} link`} component={<Link to='/dashboard/users' />} icon={<HiOutlineUsers size={'25px'} />}>Users</MenuItem>
-          <MenuItem data-aos-delay="500" data-aos="fade-right"  className={`${pathname === '/dashboard/projects' ? 'active' : null} link`} component={<Link to='/dashboard/projects' />} icon={<BsColumnsGap size={'25px'} />}>Projects</MenuItem>
-          <MenuItem data-aos-delay="600" data-aos="fade-right"  className={`${pathname === '/dashboard/tasks' ? 'active' : null} link`} component={<Link to='/dashboard/tasks' />} icon={<BsColumnsGap size={'25px'} />}>Tasks</MenuItem>
+          <MenuItem data-aos-delay="500" data-aos="fade-right"  className={`${pathname === '/dashboard/projects' ? 'active' : null} link`} component={<Link to='/dashboard/projects' />} icon={<FaProjectDiagram size={'25px'} />}>Projects</MenuItem>
+          <MenuItem data-aos-delay="600" data-aos="fade-right"  className={`${pathname === '/dashboard/tasks' ? 'active' : null} link`} component={<Link to='/dashboard/tasks' />} icon={<FaTasks size={'25px'} />}>Tasks</MenuItem>
           <MenuItem data-aos-delay="700" data-aos="fade-right" className='link' onClick={showChangePassModal} icon={<IoIosUnlock size={'25px'} />}> Change Password</MenuItem>
           <MenuItem data-aos-delay="800" data-aos="fade-right" className='link' icon={<FiLogOut size={'25px'} />} onClick={() => logOut()}>LogOut</MenuItem>
         </Menu>
