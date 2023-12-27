@@ -3,11 +3,10 @@ import { ToastContext } from '@/Context/ToastContext';
 import baseUrl from '@/utils/Custom/Custom';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowLeft as ArrowLeft } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import './AddNewProject.module.scss';
-import { INewProject } from '@/Interfaces';
-
+import { INewProject } from '@/Interfaces/Projects';
 
 
 const AddNewProject = () => {
@@ -17,27 +16,27 @@ const AddNewProject = () => {
   const [Loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const toast = useContext(ToastContext)
-  const data = useContext(AuthContext)
-  let headers = data?.header
+  const { getToastValue } = useContext(ToastContext)
+  const { headers } = useContext(AuthContext)
+
   //!  Add New Projects
   const handleAdd = (data: INewProject) => {
     setLoading(true)
-    return baseUrl.post(`/api/v1/Project`, data ,{
+    return baseUrl.post(`/api/v1/Project`, data, {
       headers,
     })
       .then(() => {
-        if (toast)
-          toast.getToastValue("success", "Project created successfully")
-        setLoading(false)
+        if (getToastValue)
+          getToastValue("success", "Project created successfully")
         navigate('/dashboard/projects')
       })
       .catch((err) => {
-        if (toast)
-          toast.getToastValue("error", err.response.data.message)
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
+      }).finally(() => {
         setLoading(false)
       })
-    }
+  }
 
 
 
@@ -47,7 +46,7 @@ const AddNewProject = () => {
 
         <h6 className='pt-3 ps-3'>
           <Link className='text-decoration-none text-black d-flex align-items-center ' to={'/dashboard/projects'}>
-            <MdKeyboardArrowLeft />
+            <ArrowLeft />
             <span>
               View All Projects
             </span>
@@ -73,7 +72,7 @@ const AddNewProject = () => {
             {errors?.description ? <span className='text-danger mb-0 mt-1'>{errors?.description?.message}</span> : null}
             <div className='d-flex justify-content-between mt-3'>
               <Link to={'/dashboard/projects'} className='btn btn-outline-dark bg-white text-black rounded-5 '>Projects Page</Link>
-              <button disabled={Loading} className='btn  text-white bg-orange rounded-5 p-2 '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Create Project"}</button>
+              <button disabled={Loading} className={`btn AuthBtn text-white bg-orange ${Loading?"px-3":"rounded-5 "} p-2 `}>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Create Project"}</button>
             </div>
 
           </form>

@@ -6,7 +6,7 @@ import { ToastContext } from '@/Context/ToastContext';
 import baseUrl from '@/utils/Custom/Custom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowLeft as ArrowLeft } from "react-icons/md";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
@@ -17,8 +17,8 @@ interface INewProject {
 
 const EditProject = () => {
 
-  const {id} = useParams()
-console.log(id);
+  const { id } = useParams()
+
 
   const required = "This Field is required"
   const { handleSubmit, register, formState: { errors } } = useForm<INewProject>()
@@ -26,41 +26,40 @@ console.log(id);
   const navigate = useNavigate()
 
 
-  const data = useContext(ProjectContext)
-  let handleGetData = data?.handleGetData
-  let tableData = data?.tableData?.data
+  const {handleGetData,tableData} = useContext(ProjectContext)
+
 
 
   useEffect(() => {
     if (handleGetData)
-    handleGetData("get",id,5)
+      handleGetData("get",Number(id), 5)
   }, [])
-  console.log(tableData);
+
 
 
 
   //!  Edit Project Function
-  const toast = useContext(ToastContext)
-  const header = useContext(AuthContext)
-  let headers = header?.header
+  const { getToastValue } = useContext(ToastContext)
+  const {headers} = useContext(AuthContext)
+
 
   const handleEdit = (data: INewProject) => {
     setLoading(true)
-    return baseUrl.put(`/api/v1/Project/${id}`, data ,{
+    return baseUrl.put(`/api/v1/Project/${id}`, data, {
       headers,
     })
       .then(() => {
-        if (toast)
-          toast.getToastValue("success", "Project edited successfully")
-        setLoading(false)
+        if (getToastValue)
+          getToastValue("success", "Project edited successfully")
         navigate('/dashboard/projects')
       })
       .catch((err) => {
-        if (toast)
-          toast.getToastValue("error", err.response.data.message)
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
+      }).finally(() => {
         setLoading(false)
       })
-    }
+  }
 
 
 
@@ -70,7 +69,7 @@ console.log(id);
 
         <h6 className='pt-3 ps-3'>
           <Link className='text-decoration-none text-black d-flex align-items-center ' to={'/dashboard/projects'}>
-            <MdKeyboardArrowLeft />
+            <ArrowLeft />
             <span>
               View All Projects
             </span>
@@ -80,7 +79,7 @@ console.log(id);
 
       </div>
 
-      {tableData?.title?<><div className="row justify-content-center mt-4 mb-2">
+      {tableData?.title ? <><div className="row justify-content-center mt-4 mb-2">
         <div className="col-md-8 bg-white simpleModule p-4">
           <form onSubmit={handleSubmit(handleEdit)}>
             <label htmlFor="title">Title</label>
@@ -96,12 +95,12 @@ console.log(id);
             {errors?.description ? <span className='text-danger mb-0 mt-1'>{errors?.description?.message}</span> : null}
             <div className='d-flex justify-content-between mt-3'>
               <Link to={'/dashboard/projects'} className='btn btn-outline-dark bg-white text-black rounded-5 '>Projects Page</Link>
-              <button disabled={Loading} className='btn  text-white bg-orange rounded-5 p-2 '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Edit Project"}</button>
+              <button disabled={Loading} className='btn  AuthBtn text-white bg-orange rounded-5 p-2 '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Edit Project"}</button>
             </div>
 
           </form>
         </div>
-      </div></> :<LoadingIcon/>}
+      </div></> : <LoadingIcon />}
 
     </main>
   </>

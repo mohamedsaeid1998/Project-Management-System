@@ -1,8 +1,6 @@
 import { ReactNode } from "react"
 import { FieldErrors, UseFormGetValues, UseFormRegister } from "react-hook-form"
 
-
-
 export interface IFormValues {
   email?: string,
   password?: string,
@@ -18,7 +16,7 @@ export interface IFormValues {
   code?:string
   title?:string
   description?:string
-  isFocus?:any
+  // isFocus?:any
 }
 
 export interface IInputsProps {
@@ -27,24 +25,11 @@ export interface IInputsProps {
   placeholder?: string
   getValues?: UseFormGetValues<IFormValues>
   errors: FieldErrors<IFormValues>
-  isFocus?:any
-  setInputFocused?:any
+  // isFocus?:any
+  // setInputFocused?:any
 }
 
 
 export interface IContextProps {
   children: ReactNode;
-}
-
-
-export interface INewProject {
-  title: string,
-  description: string
-}
-
-export interface INewTask {
-  title: string,
-  description: string,
-  employeeId: number,
-  projectId: number
 }

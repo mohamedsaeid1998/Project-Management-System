@@ -4,32 +4,28 @@ import baseUrl from "@/utils/Custom/Custom";
 import { createContext, useContext, useState } from "react";
 import { ToastContext } from "./ToastContext";
 
-interface ProjectContextTypes {
-
-  handleGetData?: (type: "get" | "delete", id: number|string, itemsNumber: number) => any
-  tableData?: any
+interface TasksContextTypes {
+  GetTaskData?: (type: "get" | "delete", id: number | string, itemsNumber: number) => any
+  taskData?: any
 }
 
-export const ProjectContext = createContext<ProjectContextTypes>({});
+export const TasksContext = createContext<TasksContextTypes>({});
 
 
 
-const ProjectContextProvider = ({ children }: IContextProps) => {
+const TasksContextProvider = ({ children }: IContextProps) => {
 
   const { getToastValue } = useContext(ToastContext)
   let headers = {
     Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
   }
 
-  const [tableData, setTableData] = useState(null)
+  const [taskData, setTaskData] = useState(null)
 
-  // const [Loading, setLoading] = useState(false)
-
-
-  const handleGetData = (type: "get" | "delete" = "get", id: number|string, itemsNumber: number = 5) => {
+  const GetTaskData = (type: "get" | "delete" = "get", id: number | string, itemsNumber: number = 5) => {
 
     if (type === "get" || type === "delete") {
-      return baseUrl[type](`/api/v1/Project/${id}`, {
+      return baseUrl[type](`/api/v1/Task/${id}`, {
         headers,
         params: {
           pageSize: itemsNumber,
@@ -39,26 +35,25 @@ const ProjectContextProvider = ({ children }: IContextProps) => {
         .then((data) => {
           if (type === "delete") {
             if (getToastValue)
-              getToastValue("success", "Project Deleted successfully")
+              getToastValue("success", "Task Deleted successfully")
           }
 
           //@ts-ignore
-          setTableData(data?.data)          
+          setTaskData(data?.data)
         })
         .catch((err) => {
           if (type === "delete") {
             if (getToastValue)
               getToastValue("error", err.response.data.message)
-
           }
         })
     }
   }
 
 
-  return <ProjectContext.Provider value={{ handleGetData, tableData }}>
+  return <TasksContext.Provider value={{ GetTaskData, taskData }}>
     {children}
-  </ProjectContext.Provider>
+  </TasksContext.Provider>
 };
 
-export default ProjectContextProvider;
+export default TasksContextProvider;

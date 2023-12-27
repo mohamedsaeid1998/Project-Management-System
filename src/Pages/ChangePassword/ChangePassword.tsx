@@ -1,15 +1,15 @@
+import { IFormValues } from '@/Interfaces'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { IFormValues } from '@/Interfaces'
 
 import baseUrl from '@/utils/Custom/Custom'
 import { useContext, useState } from 'react'
-import { toast } from 'react-toastify'
 
-import './ChangePassword.module.scss'
-import { ConfirmPassInput, PasswordInput } from '@/Components'
 import { AuthLogo } from '@/Assets/Images'
+import { ConfirmPassInput, PasswordInput } from '@/Components'
 import { AuthContext } from '@/Context/AuthContext'
+import { ToastContext } from '@/Context/ToastContext'
+import './ChangePassword.module.scss'
 
 
 
@@ -18,10 +18,9 @@ import { AuthContext } from '@/Context/AuthContext'
 const ChangePassword = () => {
 
   const [Loading, setLoading] = useState(false)
-  const auth = useContext(AuthContext)
-  let header = auth?.header
+  const {headers} = useContext(AuthContext)
   const navigate = useNavigate()
-
+  const { getToastValue } = useContext(ToastContext)
   const { register, getValues, handleSubmit, formState: { errors } } = useForm<IFormValues>()
 
 
@@ -29,20 +28,17 @@ const ChangePassword = () => {
   const onSubmit = (data: IFormValues) => {
     setLoading(true)
     return baseUrl.put(`/api/v1/Users/ChangePassword`, data, {
-      headers:header
+      headers
     })
-      .then((res) => {
-        toast.success(`${res.data.message}`, {
-          autoClose: 2000,
-          theme: "colored",
-        })
+      .then(() => {
+        if (getToastValue)
+          getToastValue("success", "Project created successfully")
         navigate('/')
       })
       .catch((err) => {
-        toast.error(`${err.response.data.message}`, {
-          autoClose: 2000,
-          theme: "colored",
-        });
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
+      }).finally(() => {
         setLoading(false)
       })
 
@@ -69,7 +65,7 @@ const ChangePassword = () => {
 
               <ConfirmPassInput {...{register,errors,getValues}} inputName={'confirmNewPassword'} placeholder='Confirm New Password' />
 
-              <button type='submit' disabled={Loading} className='btn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "ChangePassword"}</button>
+              <button type='submit' disabled={Loading} className='btn AuthBtn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "ChangePassword"}</button>
             </form>
           </div>
         </div>

@@ -12,7 +12,7 @@ const Register = () => {
   const required = "This Field is required"
   const navigate = useNavigate()
 
-  const toast = useContext(ToastContext)
+  const {getToastValue} = useContext(ToastContext)
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm<IFormValues>()
   const [Loading, setLoading] = useState(false)
@@ -26,20 +26,20 @@ const Register = () => {
   }
 
   const submitLogin = (data: IFormValues) => {
-    console.log(data);
+
 
     setLoading(true)
       // @ts-ignore
     return baseUrl.post(`/api/v1/Users/Register`, {...data,  recipeImage: data.profileImage[0]}, )
       .then(() => {
-        if (toast)
-          toast.getToastValue("success", "Registration completed successfully")
-        setLoading(false)
+        if (getToastValue)
+          getToastValue("success", "Registration completed successfully")
         navigate('/verify')
       })
       .catch((err) => {
-        if (toast)
-          toast.getToastValue("error", err.response.data.message)
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
+      }).finally(() => {
         setLoading(false)
       })
   }
@@ -133,7 +133,7 @@ const Register = () => {
 
 
         <div className='text-center'>
-          <button type='submit' disabled={Loading} className='btn w-50  mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "registration"}</button>
+          <button type='submit' disabled={Loading}  className='btn w-50  AuthBtn mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "registration"}</button>
         </div>
 
       </form>

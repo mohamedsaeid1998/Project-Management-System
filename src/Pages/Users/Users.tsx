@@ -9,8 +9,8 @@ import moment from 'moment';
 import './Users.module.scss';
 const Users = () => {
 
-  const auth = useContext(AuthContext)
-  let headers = auth?.header
+  const {headers} = useContext(AuthContext)
+
   
   const { data:tableData,refetch } = UseAuthenticatedQuery({
     queryKey: [`getAllTasks`],
@@ -20,66 +20,33 @@ const Users = () => {
     }
   })
 
-  console.log(tableData);
 
 
   // const [Loading, setLoading] = useState(false)
-  const toast = useContext(ToastContext)
+  const {getToastValue} = useContext(ToastContext)
 
   const onSubmitBlock = (id:number) => {
-console.log(id);
 
     // setLoading(true)
     return baseUrl.put(`/api/v1/Users/${id}`,{}, {
-      headers
+      headers,
+      params: {
+        pageSize: 5,
+        pageNumber: 1,
+      }
     })
-      .then((res) => {
-        console.log(res)
-        if (toast)
-          toast.getToastValue("success", "Statue has been Changed")
-        // setLoading(false)
-        // handleClose()
+      .then(() => {
+        if (getToastValue)
+          getToastValue("success", "Statue has been Changed")
         refetch()
       })
       .catch((err) => {
-        if (toast)
-          toast.getToastValue("error", err.response.data.message)
-        // setLoading(false)
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
       })
-
   }
-
-
-
-
-// const [id, setId] = useState(0)
-
-//   const [show, setShow] = useState(false)
-
-//   const showBlockModal = (id:number) => {
-//     setShow(true)
-//     setId(id)
-//     console.log(id);
-    
-//   }
-
-//   const handleClose = () => {
-//     setShow(false)
-//   }
-
-
-
   return <>
-    {/* <Modal show={show} onHide={handleClose}>
-      <Modal.Body>
 
-<form className='p-3'>
-<h3>Are You Sure?</h3>
-<button onClick={onSubmitBlock} className='btn btn-danger'>click here</button>
-</form>
-
-      </Modal.Body>
-    </Modal> */}
     
     <main className='mt-1'>
       <div className=' d-flex justify-content-between align-items-center py-3 px-4 bg-white  '>
@@ -120,7 +87,7 @@ console.log(id);
                 {/* </span> */}
 
                 <span className="edit text-danger pointer d-inline-block  ms-2 text-center">
-                  {data?.isActivated?<span className="fw-bold text-danger pointer" onClick={()=>onSubmitBlock(data.id)}>Block</span>: <span className="fw-bold text-success pointer" onClick={()=>onSubmitBlock(data.id)}>UnBlock</span>}
+                  {data?.isActivated?<button className="btn btn-danger fw-bold  pointer" onClick={()=>onSubmitBlock(data.id)}>Block</button>: <button className="btn btn-success fw-bold  pointer" onClick={()=>onSubmitBlock(data.id)}>UnBlock</button>}
                   
                   
 
