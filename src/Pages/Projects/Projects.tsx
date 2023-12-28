@@ -106,10 +106,9 @@ const Projects = () => {
 
                     <td data-cell="actions" className='action align-items-center gap-3 '>
 
-                      <span className={`delete text-center text-danger pointer`} >
-                        <Trash size={'20px'} onClick={() => showModal(data.id)} />
-
-                      </span>
+                      <button className={`delete text-center text-danger pointer`}onClick={() => showModal(data.id)} >
+                        <Trash size={'20px'} />
+                      </button>
 
                       <Link to={`/dashboard/edit-project/${data?.id}`} className="edit text-info pointer d-inline-block  ms-3 me-2 text-center">
                         <Edit size={'20px'} />

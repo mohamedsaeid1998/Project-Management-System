@@ -105,10 +105,9 @@ const Tasks = () => {
                     <td data-cell="creationDate ">{moment(data?.creationDate).format("Do MMM YY")}</td>
                     <td data-cell="actions" className='action align-items-center gap-3 '>
 
-                      <span className={`delete text-center text-danger pointer`} >
-                        <Trash size={'20px'} onClick={() => showModal(data?.id)} />
-
-                      </span>
+                      <button className={`btn delete text-center text-danger pointer`} onClick={() => showModal(data?.id)} >
+                        <Trash size={'20px'}  />
+                      </button>
 
                       <Link to={`/dashboard/edit-task/${data?.id}`} className="edit text-info pointer d-inline-block  ms-3 me-2 text-center">
                         <Edit size={'20px'} />

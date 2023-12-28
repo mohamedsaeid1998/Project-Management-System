@@ -400,9 +400,18 @@ textarea {
 }
 
 .pointer {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .btn:disabled{
   background-color: #EF9B28 !important;
+}
+
+
+.delete {
+  all: unset;
+}
+
+.delete:focus{
+  border: 2px solid black;
 }

@@ -86,13 +86,7 @@ const Users = () => {
                   {/* onClick={() => showDeleteModal(data.id)}  */}
                 {/* </span> */}
 
-                <span className="edit text-danger pointer d-inline-block  ms-2 text-center">
                   {data?.isActivated?<button className="btn btn-danger fw-bold  pointer" onClick={()=>onSubmitBlock(data.id)}>Block</button>: <button className="btn btn-success fw-bold  pointer" onClick={()=>onSubmitBlock(data.id)}>UnBlock</button>}
-                  
-                  
-
-                </span>
-
 
               </td>
             </tr>)}
