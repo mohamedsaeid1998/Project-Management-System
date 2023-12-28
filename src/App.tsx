@@ -1,8 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { AuthLayout, MasterLayout, NotFound, ProtectedRoute } from "./Components"
-import { ChangePassword, ForgetPassword, Home, Login, Projects, Register, ResetPassword, Tasks, Users, Verify } from "./Pages"
-
-
+import { AddNewProject, AddNewTask, ChangePassword, EditProject, EditTask, ForgetPassword, Home, Login, Projects, Register, ResetPassword, Tasks, Users, Verify } from "./Pages"
 
 function App() {
 
@@ -23,13 +21,17 @@ function App() {
         { index: true, element: <Home /> },
         { path: "users", element: <Users /> },
         { path: "projects", element: <Projects /> },
+        { path: "add-project", element: <AddNewProject /> },
+        { path: "edit-project/:id", element: <EditProject /> },
         { path: "tasks", element: <Tasks /> },
+        { path: "add-task", element: <AddNewTask /> },
+        { path: "edit-task/:id", element: <EditTask /> },
       ]
     },
   ])
 
   return <>
-<RouterProvider router={routes}/>
+    <RouterProvider router={routes} />
   </>
 
 }

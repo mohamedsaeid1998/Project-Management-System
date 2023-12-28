@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
   const navigate = useNavigate()
 
-  const toast = useContext(ToastContext)
+  const {getToastValue} = useContext(ToastContext)
 
   const { register, handleSubmit, formState: { errors } ,getValues} = useForm<IFormValues>()
   const [Loading, setLoading] = useState(false)
@@ -21,14 +21,14 @@ const ResetPassword = () => {
     setLoading(true)
     return baseUrl.post(`/api/v1/Users/Reset`, data)
       .then(() => {
-        if (toast)
-          toast.getToastValue("success", "Welcome")
-        setLoading(false)
+        if (getToastValue)
+          getToastValue("success", "Welcome")
         navigate('/')
       })
       .catch((err) => {
-        if (toast)
-          toast.getToastValue("error", err.response.data.message)
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
+      }).finally(() => {
         setLoading(false)
       })
   }
@@ -44,7 +44,7 @@ const ResetPassword = () => {
 <label className="orange mt-3">OTP Verification</label>
 <div className=' d-flex flex-column  '>
   <input
-    className=' form-control w-100'
+    className=' form-control-Auth w-100'
     type="text"
     placeholder='Enter Verification'
 
@@ -66,7 +66,7 @@ const ResetPassword = () => {
 <ConfirmPassInput  inputName={'confirmPassword'} placeholder='Confirm New Password' {...{ errors, register ,getValues }}   />
 
 
-<button type='submit' disabled={Loading} className='btn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Save"}</button>
+<button type='submit' disabled={Loading} className='btn AuthBtn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Save"}</button>
 
 </form>
       </AuthComponent>

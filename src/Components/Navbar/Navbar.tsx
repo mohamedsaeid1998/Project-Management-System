@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.module.scss'
 import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery'
-import { AuthLogo, NavLogo } from '@/Assets/Images'
+import {  NavLogo } from '@/Assets/Images'
 
 
 interface Props {
@@ -23,7 +23,7 @@ const Navbar = ({ logOut }: Props) => {
   })
 
   return <>
-    <nav className="navbar navbar-expand-lg bg-light  ">
+    <nav className="navbar navbar-expand-lg bg-white  ">
       <div className="container-fluid">
         <img src={NavLogo} alt="Logo" width="200" height="55" className="d-inline-block align-text-top me-2 " />
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

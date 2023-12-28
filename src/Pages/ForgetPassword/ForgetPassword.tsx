@@ -9,7 +9,7 @@ import './ForgetPassword.module.scss'
 const ForgetPassword = () => {
   const navigate = useNavigate()
 
-  const toast = useContext(ToastContext)
+  const {getToastValue} = useContext(ToastContext)
 
   const { register, handleSubmit, formState: { errors } } = useForm<IFormValues>()
   const [Loading, setLoading] = useState(false)
@@ -19,14 +19,14 @@ const ForgetPassword = () => {
     setLoading(true)
     return baseUrl.post(`/api/v1/Users/Reset/Request`, data)
       .then(() => {
-        if (toast)
-          toast.getToastValue("success", "Mail Send Successfully")
-        setLoading(false)
+        if (getToastValue)
+          getToastValue("success", "Mail Send Successfully")
         navigate('/resetPassword')
       })
       .catch((err) => {
-        if (toast)
-          toast.getToastValue("error", err.response.data.message)
+        if (getToastValue)
+          getToastValue("error", err.response.data.message)
+      }).finally(() => {
         setLoading(false)
       })
   }
@@ -40,7 +40,7 @@ const ForgetPassword = () => {
         <div className=' mt-4 '>
           <Link to={'/'} className='forget text-decoration-none text-white  '>Login Now ?</Link>
         </div>
-        <button type='submit' disabled={Loading} className='btn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Verify"}</button>
+        <button type='submit' disabled={Loading} className='btn AuthBtn w-100 mt-4 fw-bold text-white bg-orange rounded-5 btn-lg '>{Loading ? <i className='fa fa-spin fa-spinner'></i> : "Verify"}</button>
 
       </form>
       </AuthComponent>  

@@ -29,7 +29,7 @@ const ConfirmPassInput = ({ register, inputName, placeholder, getValues, errors 
       <div className=' d-flex  align-items-center justify-content-between position-relative'>
       <div className='d-flex gap-2 flex-grow-1 flex-column  '>
           <input
-            className='form-control pass w-100'
+            className='form-control-Auth pass w-100'
             type={type ? "text" : "password"}
             placeholder={placeholder}
             {...register(`${inputName}`, {

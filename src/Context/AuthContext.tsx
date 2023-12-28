@@ -4,16 +4,13 @@ import { IContextProps } from "@/Interfaces";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import {  createContext, useEffect, useState } from "react";
 interface AuthContextValue {
-  saveAdminData: () => void;
-  Loading:boolean
-  adminData:JwtPayload | null
-  header:{
-    Authorization:string
-  }
-  userRole:string
+  saveAdminData?: () => void;
+  adminData?:JwtPayload | null
+  headers?:{}
+  userRole?:string
 }
 
-export const AuthContext = createContext<AuthContextValue|null>(null);
+export const AuthContext = createContext<AuthContextValue>({});
 
 
 
@@ -23,12 +20,12 @@ const AuthContextProvider = ({ children }: IContextProps) => {
     localStorage.getItem("adminToken") !== null ? saveAdminData() : null
   }, [])
 
-  let header = {
+  let headers = {
     Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
   }
 
 
-  const [Loading, setLoading] = useState(false)
+  // const [Loading, setLoading] = useState(false)
   const [adminData, setAdminData] = useState<JwtPayload | null>(null)
   const [userRole, setUserRole] = useState("")
 
@@ -45,12 +42,11 @@ if (encodedToken) {
 
 
 
-console.log(userRole);
 
 
 
 
-  return <AuthContext.Provider value={{Loading,adminData,saveAdminData,header,userRole}}>
+  return <AuthContext.Provider value={{adminData,saveAdminData,headers,userRole}}>
       {children}
     </AuthContext.Provider>
 };

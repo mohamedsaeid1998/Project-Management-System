@@ -1,8 +1,6 @@
 import { ReactNode } from "react"
 import { FieldErrors, UseFormGetValues, UseFormRegister } from "react-hook-form"
 
-
-
 export interface IFormValues {
   email?: string,
   password?: string,
@@ -16,6 +14,9 @@ export interface IFormValues {
   phoneNumber?:number
   profileImage?:string
   code?:string
+  title?:string
+  description?:string
+  // isFocus?:any
 }
 
 export interface IInputsProps {
@@ -24,6 +25,8 @@ export interface IInputsProps {
   placeholder?: string
   getValues?: UseFormGetValues<IFormValues>
   errors: FieldErrors<IFormValues>
+  // isFocus?:any
+  // setInputFocused?:any
 }
 
 

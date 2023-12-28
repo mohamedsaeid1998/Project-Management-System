@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 
 
 interface ToastContextValue {
-  getToastValue: (type: string, message: string) => void;
+  getToastValue?: (type: string, message: string) => void;
 }
 
-export const ToastContext = createContext<ToastContextValue | undefined>(undefined);
+export const ToastContext = createContext<ToastContextValue>({});
 
 
 
