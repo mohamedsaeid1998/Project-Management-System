@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.module.scss'
 import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery'
-import {  NavLogo } from '@/Assets/Images'
+import {  NavLogo, NoImage } from '@/Assets/Images'
 
 
 interface Props {
@@ -35,7 +35,7 @@ const Navbar = ({ logOut }: Props) => {
             <li data-aos="fade-left" data-aos-delay="400" className="nav-item dropdown">
 
               <a className="nav-link dropdown-toggle d-flex align-items-center" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img className='navImage me-3' src={ `http://upskilling-egypt.com:3003/` + data?.imagePath  } alt="NavAvatar" />
+                <img className='navImage me-3' src={data?.imagePath? `http://upskilling-egypt.com:3003/` + data?.imagePath  : NoImage } alt="NavAvatar" />
                 <div className='d-flex flex-column'>
                   <span className='capitalize'>{data?.userName }</span>
                   <span className='navEmail small'>{data?.email}</span>
