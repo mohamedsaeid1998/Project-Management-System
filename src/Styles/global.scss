@@ -465,7 +465,7 @@ textarea {
 
 .options {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   font-size: 14px;
 
@@ -473,6 +473,7 @@ textarea {
     display: flex;
     gap: 10px;
     align-items: center;
+
 
     .titles {
       display: flex;
