@@ -9,7 +9,7 @@
       "customTemplates": {
         "component": "./Template/TemplateName.tsx"
       },
-      "path": "src/Pages",
+      "path": "src/Components",
       "withStyle": true,
       "withTest": false,
       "withStory": false,
