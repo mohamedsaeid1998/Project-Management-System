@@ -25,7 +25,7 @@ const Tasks = () => {
     config: {
       headers,
     },
-  }) : { data: null, isLoading: false };
+  }) : { data: null, isLoading: false ,refetch:null };
 
 
   
@@ -54,6 +54,7 @@ const Tasks = () => {
     }
 
     setLoading(false)
+    if(refetch)
     refetch()
     setShow(false)
   }
