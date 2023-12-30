@@ -14,11 +14,16 @@ const Task = ({title,id,status}:Props) => {
   const [{isDragging},drag]=useDrag(()=>({
     type:"div",
     item:{id,status},
+    end:(draggedItem, monitor)=>{
+      const dropResult = monitor.getDropResult()
+      if (draggedItem && dropResult) {
+        alert(`You dropped  into !`)
+    }},
     collect:(monitor)=> ({
       isDragging:!!monitor.isDragging(),
     }),
   }))
-  console.log(isDragging);
+  // console.log(isDragging);
   
   return <>
     <div ref={drag} className='p-3 d-flex justify-content-between bg-warning align-items-center' style={{border:isDragging?"5px solid red" :"0px" }}>

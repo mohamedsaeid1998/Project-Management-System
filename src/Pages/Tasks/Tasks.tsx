@@ -126,19 +126,24 @@ const Tasks = () => {
 
 
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{ canDrop,isOver }, drop] = useDrop(() => ({
     accept: "div",
     drop: (item:any) => throwElement(item.id, item.status),
     collect:(monitor)=> ({
-      isOver:monitor.isOver(),
+      isOver:!!monitor.isOver(),
+      canDrop:!!monitor.canDrop(),
     }),
     
   }))
 
-console.log(isOver);
-
-
-
+const isActive = canDrop && isOver;
+let backgroundColor = "rgba(49, 89, 81, 0.90)";
+if (isActive) {
+  backgroundColor = "darkgreen";
+} else if (canDrop) {
+  backgroundColor = "darkkhaki";
+}
+console.log(isOver, canDrop);
 
 // const status = ["ToDo","InProgress","Done"]
 
@@ -221,22 +226,22 @@ console.log(isOver);
         <div className="row p-3">
           <div className="col-md-4 mt-4">
             <h2 className=''>To Do</h2>
-            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop}>
-              {AllTasks?.todo?.map(({ title, id,status }) => <Task key={id} {...{ title, id,status } } />)}
+            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop} style={{backgroundColor}}>
+              {AllTasks?.todo?.map(({ title, id, status }) => <Task key={id}  {...{ title, id, status }} />)}
             </div>
           </div>
 
 
           <div className="col-md-4 mt-4 " >
             <h2 className=''>InProgress</h2>
-            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop}   >
-              {AllTasks?.inProgress?.map(({ title, id, status }) => <Task  key={id} {...{ title, id, status  }} />)}
+            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop} style={{backgroundColor}}>
+              {AllTasks?.inProgress?.map(({ title, id, status }) => <Task key={id}  {...{ title, id, status }} />)}
             </div>
           </div>
 
           <div className="col-md-4 mt-4">
             <h2 className=''>Done</h2>
-            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop}>
+            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop} style={{backgroundColor}}>
               {AllTasks?.done?.map(({ title, id, status }) => <Task key={id}  {...{ title, id, status }} />)}
             </div>
           </div>
