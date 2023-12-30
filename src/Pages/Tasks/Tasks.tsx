@@ -1,8 +1,8 @@
 import { NoDataImg } from '@/Assets/Images';
-import { LoadingIcon, Task } from '@/Components';
+import { Done, InProgress, LoadingIcon, Todo } from '@/Components';
 import { AuthContext } from '@/Context/AuthContext';
 import { TasksContext } from '@/Context/TasksContext';
-import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery';
+import baseUrl from '@/utils/Custom/Custom';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
@@ -10,8 +10,8 @@ import { AiOutlinePlus as PlusIcon } from 'react-icons/ai';
 import { FaEdit as Edit, FaTrash as Trash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import './Tasks.module.scss';
-import baseUrl from '@/utils/Custom/Custom';
-import { useDrop } from 'react-dnd';
+import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery';
+
 
 
 const Tasks = () => {
@@ -19,26 +19,17 @@ const Tasks = () => {
   const { headers, userRole } = useContext(AuthContext)
 
 
-
-
-  // ToDo, InProgress, Done
-
-
-
-
-
-
-
-
-
-
-  const { data: tableData, refetch, isLoading } = UseAuthenticatedQuery({
+  const { data: tableData, isLoading ,refetch} = userRole === "Manager" ? UseAuthenticatedQuery({
     queryKey: [`getAllTasks`],
     url: `http://upskilling-egypt.com:3003/api/v1/Task/manager`,
     config: {
-      headers
-    }
-  })
+      headers,
+    },
+  }) : { data: null, isLoading: false };
+
+
+  
+  
   const [Loading, setLoading] = useState(false)
 
   //! For Delete Module 
@@ -96,56 +87,10 @@ const Tasks = () => {
 
 
   useEffect(() => {
+if(userRole==="Employee")
     getTasksData()
-  }, [])
+  }, [userRole])
 
-
-
-  const throwElement = (id:number,status:string) => {
-    console.log(status,id);
-    
-      return baseUrl.put(`/api/v1/Task/${id}/change-status`,{
-        status
-      },{
-        headers,
-      })
-        .then((res) => {
-          console.log(res);
-
-          refetch()
-
-        })
-        .catch((err) => {
-          console.log(err);
-        }).finally(()=>{
-          refetch()
-        })
-
-  }
-
-
-
-
-  const [{ canDrop,isOver }, drop] = useDrop(() => ({
-    accept: "div",
-    drop: (item:any) => throwElement(item.id, item.status),
-    collect:(monitor)=> ({
-      isOver:!!monitor.isOver(),
-      canDrop:!!monitor.canDrop(),
-    }),
-    
-  }))
-
-const isActive = canDrop && isOver;
-let backgroundColor = "rgba(49, 89, 81, 0.90)";
-if (isActive) {
-  backgroundColor = "darkgreen";
-} else if (canDrop) {
-  backgroundColor = "darkkhaki";
-}
-console.log(isOver, canDrop);
-
-// const status = ["ToDo","InProgress","Done"]
 
 
   return <>
@@ -223,31 +168,27 @@ console.log(isOver, canDrop);
           </div>
         }
       </> : <>
+        {AllTasks.todo.length ==0 && <LoadingIcon />}
+        {AllTasks.todo.length>0 && 
         <div className="row p-3">
           <div className="col-md-4 mt-4">
-            <h2 className=''>To Do</h2>
-            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop} style={{backgroundColor}}>
-              {AllTasks?.todo?.map(({ title, id, status }) => <Task key={id}  {...{ title, id, status }} />)}
-            </div>
+          <h2 className=''>To Do</h2>
+              <Todo AllTasks={AllTasks?.todo} getTasksData={getTasksData} />
           </div>
 
 
           <div className="col-md-4 mt-4 " >
             <h2 className=''>InProgress</h2>
-            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop} style={{backgroundColor}}>
-              {AllTasks?.inProgress?.map(({ title, id, status }) => <Task key={id}  {...{ title, id, status }} />)}
-            </div>
+            <InProgress AllTasks={AllTasks?.inProgress} getTasksData={getTasksData} />
           </div>
 
           <div className="col-md-4 mt-4">
             <h2 className=''>Done</h2>
-            <div className='TasksContainer p-3 d-flex flex-column gap-3' ref={drop} style={{backgroundColor}}>
-              {AllTasks?.done?.map(({ title, id, status }) => <Task key={id}  {...{ title, id, status }} />)}
-            </div>
+            <Done AllTasks={AllTasks?.done} getTasksData={getTasksData}/>
           </div>
 
 
-        </div>
+        </div>}
 
       </>}
 

@@ -14,11 +14,6 @@ const Task = ({title,id,status}:Props) => {
   const [{isDragging},drag]=useDrag(()=>({
     type:"div",
     item:{id,status},
-    end:(draggedItem, monitor)=>{
-      const dropResult = monitor.getDropResult()
-      if (draggedItem && dropResult) {
-        alert(`You dropped  into !`)
-    }},
     collect:(monitor)=> ({
       isDragging:!!monitor.isDragging(),
     }),
