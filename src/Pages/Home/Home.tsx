@@ -12,10 +12,8 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
 const Home = () => {
 
-  const { headers, userRole, adminData } = useContext(AuthContext)
-  console.log(adminData);
+  const { headers, adminData } = useContext(AuthContext)
 
-  console.log(userRole);
 
 
   const { data: tableData } = UseAuthenticatedQuery({
@@ -25,10 +23,11 @@ const Home = () => {
       headers
     }
   })
+
+
   if (tableData)
     var { done, inProgress, toDo } = tableData
-  var TasksNumber = done + inProgress + toDo
-  console.log(TasksNumber);
+
 
 
   const [userCount, setUserCount] = useState<any>(null)
@@ -38,14 +37,11 @@ const Home = () => {
       headers,
     })
       .then((res) => {
-        console.log(res.data);
         setUserCount(res.data)
       })
-      .catch((err) => {
-        console.log(err);
-      })
+
   }
-  console.log();
+
 
   useEffect(() => {
 
