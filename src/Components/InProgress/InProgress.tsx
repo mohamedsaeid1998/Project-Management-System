@@ -60,7 +60,6 @@ const InProgress = ({ AllTasks,getTasksData }: IEmpTasks) => {
   } else if (canDrop) {
     backgroundColor = "darkkhaki";
   }
-  console.log(isOver, canDrop);
 
 
   return <>

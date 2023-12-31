@@ -23,7 +23,6 @@ interface Props {
 const SideBar = ({logOut,isSidebarOpen,setSidebarOpen}:Props) => {
 
 const {userRole} =  useContext(AuthContext)
-console.log(userRole)
 
   const [iscollapsed, setIscollapsed] = useState(false)
 

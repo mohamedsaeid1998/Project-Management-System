@@ -54,6 +54,8 @@ const Todo = ({ AllTasks,getTasksData }: IEmpTasks) => {
 
   }))
 
+
+
   const isActive = canDrop && isOver;
   let backgroundColor = "rgba(49, 89, 81, 0.90)";
   if (isActive) {
@@ -61,7 +63,7 @@ const Todo = ({ AllTasks,getTasksData }: IEmpTasks) => {
   } else if (canDrop) {
     backgroundColor = "darkkhaki";
   }
-  console.log(isOver, canDrop);
+
 
 
   return <>

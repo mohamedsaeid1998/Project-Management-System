@@ -12,8 +12,6 @@ import { Link } from 'react-router-dom';
 import './Tasks.module.scss';
 import UseAuthenticatedQuery from '@/utils/Hooks/UseAuthenticatedQuery';
 
-
-
 const Tasks = () => {
 
   const { headers, userRole } = useContext(AuthContext)
@@ -61,31 +59,28 @@ const Tasks = () => {
 
 
 
+// ?  Employee Tasks Drag And Drop 
 
   const [AllTasks, setAllTasks] = useState({
     todo: [],
     inProgress: [],
     done: []
   })
-  // console.log(AllTasks);
+  
+  const filterTasksByStatus = (res:any, status:string) => res.data?.data?.filter((task:any) => task.status === status);
 
   const getTasksData = () => {
     return baseUrl.get(`/api/v1/Task?pageSize=1000&pageNumber=1`, {
       headers,
     })
       .then((res) => {
-        console.log(res.data.data);
         setAllTasks({
-          todo: res?.data?.data?.filter((task: any) => task.status === "ToDo"),
-          inProgress: res?.data?.data?.filter((task: any) => task.status === "InProgress"),
-          done: res?.data?.data?.filter((task: any) => task.status === "Done")
+          todo: filterTasksByStatus(res, "ToDo"),
+          inProgress: filterTasksByStatus(res, "InProgress"),
+          done: filterTasksByStatus(res, "Done")
         })
       })
-      .catch((err) => {
-        console.log(err);
-      })
   }
-
 
   useEffect(() => {
 if(userRole==="Employee")
@@ -173,18 +168,17 @@ if(userRole==="Employee")
         {AllTasks.todo.length>0 && 
         <div className="row p-3">
           <div className="col-md-4 mt-4">
-          <h2 className=''>To Do</h2>
+          <h2>To Do</h2>
               <Todo AllTasks={AllTasks?.todo} getTasksData={getTasksData} />
           </div>
 
-
           <div className="col-md-4 mt-4 " >
-            <h2 className=''>InProgress</h2>
+            <h2>InProgress</h2>
             <InProgress AllTasks={AllTasks?.inProgress} getTasksData={getTasksData} />
           </div>
 
           <div className="col-md-4 mt-4">
-            <h2 className=''>Done</h2>
+            <h2>Done</h2>
             <Done AllTasks={AllTasks?.done} getTasksData={getTasksData}/>
           </div>
 
