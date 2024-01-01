@@ -22,14 +22,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
   <ToastContextProvider>
     <TasksContextProvider>
-    <ProjectContextProvider>
       <AuthContextProvider>
+    <ProjectContextProvider>
       <ToastContainer  />
       <DndProvider backend={HTML5Backend} >
         <App />
         </DndProvider>
-      </AuthContextProvider>
     </ProjectContextProvider>
+      </AuthContextProvider>
     </TasksContextProvider>
     </ToastContextProvider>
     </QueryClientProvider>
